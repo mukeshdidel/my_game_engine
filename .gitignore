@@ -1,0 +1,40 @@
+# Compiled files
+*.o
+*.a
+*.lib
+*.dll
+*.exe
+
+# Build directories
+/bin/
+/build/
+/out/
+/Debug/
+/Release/
+
+# IDE files
+.vscode/
+.vs/
+.idea/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.sln.DotSettings
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Dependencies
+/dependencies/
+/lib/
+/include/external/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak

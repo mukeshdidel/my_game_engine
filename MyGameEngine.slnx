@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="MyGameEngine/MyGameEngine.vcxproj" Id="c676a1ff-63c0-41db-80f6-08b4882472dc" />
+  <Project Path="SandBox/SandBox.vcxproj" Id="374bafd8-9bed-47ce-bacd-fd04f056b325" />
+</Solution>
