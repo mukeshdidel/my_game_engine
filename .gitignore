@@ -7,6 +7,7 @@
 
 # Build directories
 /bin/
+/bin-int/
 /build/
 /out/
 /Debug/
