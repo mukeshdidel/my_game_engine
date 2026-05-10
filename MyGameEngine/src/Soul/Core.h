@@ -9,3 +9,5 @@
 #else 
 	#error Soul only supports Windows! 
 #endif // SL_PLATFORM_WINDOWS
+
+#define BIT(x) (1 << x)
