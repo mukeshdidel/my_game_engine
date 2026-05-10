@@ -1,9 +1,7 @@
 #pragma once
 
-#include <string>
-#include <functional>
-
 #include "Soul/Core.h"
+
 
 namespace soul {
 

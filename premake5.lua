@@ -17,6 +17,12 @@ project "MyGameEngine"
 	language "C++"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	
+	pchheader "soulpch.h"
+	pchsource "MyGameEngine/src/soulpch.cpp"
+	 
+
 	files
 	{
 		"%{prj.name}/src/**.h",
@@ -28,7 +34,7 @@ project "MyGameEngine"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{prj.name}/src"
 	}
-	 
+
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"
