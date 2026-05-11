@@ -14,8 +14,12 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "MyGameEngine/vendor/GLFW/include"
+IncludeDir["Glad"] = "MyGameEngine/vendor/Glad/include"
+
 
 include "MyGameEngine/vendor/GLFW"
+include "MyGameEngine/vendor/Glad"
+
 
 project "MyGameEngine"
 	location "MyGameEngine"
@@ -40,12 +44,14 @@ project "MyGameEngine"
 	{
 		"%{prj.name}/vendor/spdlog/include",
 		"%{prj.name}/src",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}"
 	}
 
 	links
 	{
 		"GLFW",
+		"Glad",
 		"opengl32.lib"
 	}
 
@@ -56,7 +62,8 @@ project "MyGameEngine"
 		defines
 		{
 			"SL_PLATFORM_WINDOWS",
-			"SL_BUILD_DLL"
+			"SL_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands
@@ -70,12 +77,15 @@ project "MyGameEngine"
 
 	filter "configurations:Debug"
 		defines "SL_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 	filter "configurations:Release"
 		defines "SL_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 	filter "configurations:Dist"
 		defines "SL_DIST"
+		buildoptions "/MD"
 		optimize "On"
 		
 project "Sandbox"
@@ -117,12 +127,15 @@ project "Sandbox"
 			"/utf-8" 
 		}
 
-	filter "configurations:Debug"
+	filter "configurations:Debug" 
 		defines "SL_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 	filter "configurations:Release"
 		defines "SL_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 	filter "configurations:Dist"
 		defines "SL_DIST"
+		buildoptions "/MD"
 		optimize "On"
