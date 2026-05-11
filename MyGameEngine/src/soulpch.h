@@ -13,6 +13,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <cassert>
+#include <cstdint>
 
 
 #ifdef SL_PLATFORM_WINDOWS

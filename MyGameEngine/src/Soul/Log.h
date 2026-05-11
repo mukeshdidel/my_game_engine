@@ -25,7 +25,8 @@ namespace soul {
 #define SL_CORE_WARN(...)		::soul::Log::GetCoreLogger()->warn(__VA_ARGS__)
 #define SL_CORE_ERROR(...)		::soul::Log::GetCoreLogger()->error(__VA_ARGS__)
 #define SL_CORE_CRITICAL(...)	::soul::Log::GetCoreLogger()->critical(__VA_ARGS__)
-#define SL_CLIENT_FATAL(...)		::soul::Log::GetClientLogger()->fatal(__VA_ARGS__)
+#define SL_CORE_FATAL(...)		::soul::Log::GetCoreLogger()->fatal(__VA_ARGS__)
+
 
 // client log macros so that they can be used like this: SL_ERROR("This is an error message with a number: {}", 42); instead of ::soul::Log::GetClientLogger()->error("This is an error message with a number: {}", 42);
 
