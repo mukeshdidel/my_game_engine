@@ -25,7 +25,7 @@ namespace soul {
 		
 		bool OnKeyPressedEvent(KeyPressedEvent& event);
 		bool OnKeyReleasedEvent(KeyReleasedEvent& event);
-		//bool OnKeyTypedEvent(KeyTypedEvent& event);
+		bool OnKeyTypedEvent(KeyTypedEvent& event);
 		
 		bool OnWindowResizeEvent(WindowResizeEvent& event);
 	private:

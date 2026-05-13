@@ -56,7 +56,13 @@ namespace soul {
 		io.KeyMap[ImGuiKey_X] = GLFW_KEY_X;
 		io.KeyMap[ImGuiKey_Y] = GLFW_KEY_Y;
 		io.KeyMap[ImGuiKey_Z] = GLFW_KEY_Z;
+		
+		//
+		//GLFWwindow* window = (GLFWwindow*)Application::Get()
+		//	.GetWindow()
+		//	.GetNativeWindow();
 
+		//ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init("#version 410");
 	}
 
@@ -78,10 +84,12 @@ namespace soul {
 		m_Time = time;
 
 		ImGui_ImplOpenGL3_NewFrame();
+		//ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
 		static bool show = true;
 		ImGui::ShowDemoWindow(&show);
+		 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
@@ -96,7 +104,7 @@ namespace soul {
 		dispatcher.Dispatch<MouseScrolledEvent>(SOUL_BIND_EVENT_FN(ImGuiLayer::OnMouseScrolledEvent));
 		dispatcher.Dispatch<KeyPressedEvent>(SOUL_BIND_EVENT_FN(ImGuiLayer::OnKeyPressedEvent));
 		dispatcher.Dispatch<KeyReleasedEvent>(SOUL_BIND_EVENT_FN(ImGuiLayer::OnKeyReleasedEvent));
-		//dispatcher.Dispatch<KeyTypedEvent>(SOUL_BIND_EVENT_FN(ImGuiLayer::OnKeyTypedEvent));
+		dispatcher.Dispatch<KeyTypedEvent>(SOUL_BIND_EVENT_FN(ImGuiLayer::OnKeyTypedEvent));
 		dispatcher.Dispatch<WindowResizeEvent>(SOUL_BIND_EVENT_FN(ImGuiLayer::OnWindowResizeEvent));
 	}
 
@@ -151,6 +159,15 @@ namespace soul {
 		io.KeyShift = io.KeysDown[GLFW_KEY_LEFT_SHIFT] || io.KeysDown[GLFW_KEY_RIGHT_SHIFT];
 		io.KeyAlt = io.KeysDown[GLFW_KEY_LEFT_ALT] || io.KeysDown[GLFW_KEY_RIGHT_ALT];
 		io.KeySuper = io.KeysDown[GLFW_KEY_LEFT_SUPER] || io.KeysDown[GLFW_KEY_RIGHT_SUPER];
+		return false;
+	}
+
+	bool ImGuiLayer::OnKeyTypedEvent(KeyTypedEvent& event)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		int keycode = event.GetKeyCode();
+		if (keycode > 0 && keycode < 0x10000)
+			io.AddInputCharacter((unsigned short)keycode);
 		return false;
 	}
 
