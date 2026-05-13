@@ -20,6 +20,7 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
+		PushOverlay(new soul::ImGuiLayer());
 	}
 	~Sandbox()
 	{
