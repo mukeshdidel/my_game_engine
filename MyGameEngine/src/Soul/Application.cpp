@@ -3,7 +3,9 @@
 #include "Log.h"
 
 
+
 #include <glad/glad.h>
+#include "Input.h"
 
 namespace soul {
 
@@ -20,9 +22,11 @@ namespace soul {
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 	}
+
 	Application::~Application()
 	{
 	}
+
 	void Application::Run()
 	{
 		while (m_Running) {
@@ -33,11 +37,12 @@ namespace soul {
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 
-			m_Window->OnUpdate();
-		}
+			SL_CORE_TRACE("{0}, {1}", Input::GetMouseX(), Input::GetMouseY());
 
-		
+				m_Window->OnUpdate();
+		}
 	}
+
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
@@ -51,8 +56,6 @@ namespace soul {
 			if (e.Handled)
 				break;
 		}
-
-
 	}
 
 	void Application::PushLayer(Layer* layer)
@@ -64,7 +67,7 @@ namespace soul {
 	void Application::PushOverlay(Layer* overlay)
 	{
 		m_LayerStack.PushOverlay(overlay);
-		overlay->OnAttach();	
+		overlay->OnAttach();
 	}
 
 
