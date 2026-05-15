@@ -6,7 +6,12 @@ class ExampleLayer : public soul::Layer
 	ExampleLayer() : Layer("Example") {}
 	void OnUpdate() override
 	{
-		SL_INFO("ExampleLayer::Update");
+		//SL_INFO("ExampleLayer::Update");
+
+		if (soul::Input::IsKeyPressed(SL_KEY_TAB))
+		{
+			SL_INFO("Tab key is pressed");
+		}
 	}
 	void OnEvent(soul::Event& event) override
 	{
