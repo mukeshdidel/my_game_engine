@@ -36,128 +36,71 @@ namespace soul {
 
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
 		ImGui::StyleColorsDark();
 
+
+		ImGuiStyle& style = ImGui::GetStyle();
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			style.WindowRounding = 0.0f;
+			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+		}
+
+
 		Application& app = Application::Get();
 
-		GLFWwindow* window =
-			static_cast<GLFWwindow*>(
-				app.GetWindow().GetNativeWindow()
-				);
+		GLFWwindow* window =static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
 
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
-
 		ImGui_ImplOpenGL3_Init("#version 410");
 	}
 
 	void ImGuiLayer::OnDetach()
 	{
+		ImGui_ImplOpenGL3_Shutdown();
+		ImGui_ImplGlfw_Shutdown();
+		ImGui::DestroyContext();
 	}
 
+	void ImGuiLayer::Begin()
+	{
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+	}
 
-	void ImGuiLayer::OnUpdate()
+	void ImGuiLayer::End()
 	{
 		ImGuiIO& io = ImGui::GetIO();
-
 		Application& app = Application::Get();
-
 		io.DisplaySize = ImVec2(
 			(float)app.GetWindow().GetWidth(),
 			(float)app.GetWindow().GetHeight()
 		);
 
-		float time = (float)glfwGetTime();
-
-		io.DeltaTime =
-			m_Time > 0.0f
-			? (time - m_Time)
-			: (1.0f / 60.0f);
-
-		m_Time = time;
-
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-
-		ImGui::NewFrame();
-
-		static bool show = true;
-
-		ImGui::ShowDemoWindow(&show);
-
+		// Rendering
 		ImGui::Render();
-
 		ImGui_ImplOpenGL3_RenderDrawData(
 			ImGui::GetDrawData()
 		);
+
+
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			GLFWwindow* backup_current_context = glfwGetCurrentContext();
+			ImGui::UpdatePlatformWindows();
+			ImGui::RenderPlatformWindowsDefault();
+			glfwMakeContextCurrent(backup_current_context);
+		}
 	}
 
 
-
-	void ImGuiLayer::OnEvent(Event& event) {}
-	//{
-	//	EventDispatcher dispatcher(event);
-	//	dispatcher.Dispatch<MouseButtonPressedEvent>(SOUL_BIND_EVENT_FN(ImGuiLayer::OnMouseButtonPressedEvent));
-	//	dispatcher.Dispatch<MouseButtonReleasedEvent>(SOUL_BIND_EVENT_FN(ImGuiLayer::OnMouseButtonReleasedEvent));
-	//	dispatcher.Dispatch<MouseMovedEvent>(SOUL_BIND_EVENT_FN(ImGuiLayer::OnMouseMovedEvent));
-	//	dispatcher.Dispatch<MouseScrolledEvent>(SOUL_BIND_EVENT_FN(ImGuiLayer::OnMouseScrolledEvent));
-	//	dispatcher.Dispatch<KeyPressedEvent>(SOUL_BIND_EVENT_FN(ImGuiLayer::OnKeyPressedEvent));
-	//	dispatcher.Dispatch<KeyReleasedEvent>(SOUL_BIND_EVENT_FN(ImGuiLayer::OnKeyReleasedEvent));
-	//	dispatcher.Dispatch<KeyTypedEvent>(SOUL_BIND_EVENT_FN(ImGuiLayer::OnKeyTypedEvent));
-	//	dispatcher.Dispatch<WindowResizeEvent>(SOUL_BIND_EVENT_FN(ImGuiLayer::OnWindowResizeEvent));
-	//}
-
-
-	bool ImGuiLayer::OnMouseButtonPressedEvent(MouseButtonPressedEvent& event)
+	void ImGuiLayer::OnImGuiRender()
 	{
-		ImGuiIO& io = ImGui::GetIO();
-		io.MouseDown[event.GetMouseButton()] = true;
-
-
-		return false;
-	}
-
-	bool ImGuiLayer::OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& event)
-	{
-		ImGuiIO& io = ImGui::GetIO();
-		io.MouseDown[event.GetMouseButton()] = false;
-		return false;
-	}
-
-	bool ImGuiLayer::OnMouseMovedEvent(MouseMovedEvent& event)
-	{
-		ImGuiIO& io = ImGui::GetIO();
-		io.MousePos = ImVec2(event.GetX(), event.GetY());
-		return false;
-	}
-	
-	bool ImGuiLayer::OnMouseScrolledEvent(MouseScrolledEvent& event)
-	{
-		ImGuiIO& io = ImGui::GetIO();
-		io.MouseWheelH += event.GetXOffset();
-		io.MouseWheel += event.GetYOffset();
-		return false;
-	}
-
-	bool ImGuiLayer::OnKeyPressedEvent(KeyPressedEvent& event)
-	{
-		return false;
-	}
-
-	bool ImGuiLayer::OnKeyReleasedEvent(KeyReleasedEvent& event)
-	{
-
-		return false;
-	}
-
-	bool ImGuiLayer::OnKeyTypedEvent(KeyTypedEvent& event)
-	{
-		return false;
-	}
-
-	bool ImGuiLayer::OnWindowResizeEvent(WindowResizeEvent& event)
-	{
-		return false;
+		static bool show = true;
+		ImGui::ShowDemoWindow(&show);
 	}
 
 

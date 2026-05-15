@@ -24,7 +24,7 @@ namespace soul {
 
 	private:
 		std::vector<Layer*> m_Layers;
-		std::vector<Layer*>::iterator m_LayerInsert; 
+		unsigned int m_LayerInsertIndex = 0; 
 		// This is an iterator that points to the position where the next layer will be inserted. 
 		// It starts at the beginning of the vector and moves forward as layers are added. When an overlay is added, 
 		// it is inserted at the position pointed to by m_LayerInsert,

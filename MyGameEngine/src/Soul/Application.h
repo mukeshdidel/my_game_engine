@@ -6,6 +6,8 @@
 #include "Soul/Window.h"
 #include "Soul/LayerStack.h"
 
+#include "Soul/ImGui/ImGuiLayer.h"
+
 
 namespace soul {
 
@@ -29,6 +31,7 @@ namespace soul {
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		
 		LayerStack m_LayerStack;
