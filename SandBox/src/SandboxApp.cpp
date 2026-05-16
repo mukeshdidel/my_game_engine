@@ -15,7 +15,7 @@ class ExampleLayer : public soul::Layer
 	}
 	void OnEvent(soul::Event& event) override
 	{
-		SL_INFO("{0}", event.ToString());
+		//SL_INFO("{0}", event.ToString());
 	}
 };
 
