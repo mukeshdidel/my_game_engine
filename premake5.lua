@@ -27,9 +27,12 @@ include "MyGameEngine/vendor/imgui"
 
 project "MyGameEngine"
 	location "MyGameEngine"
-	kind "SharedLib"
-	staticruntime "Off"
+	kind "StaticLib"
+	staticruntime "on"
 	language "C++"
+	cppdialect "C++17"
+
+
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
@@ -84,24 +87,28 @@ project "MyGameEngine"
 
 	filter "configurations:Debug"
 		defines "SL_DEBUG"
-		buildoptions "/MDd"
-		symbols "On"
+		runtime "Debug"
+		symbols "on"
 	filter "configurations:Release"
 		defines "SL_RELEASE"
-		buildoptions "/MD"
-		optimize "On"
+		runtime "Release"
+		optimize "on"
 	filter "configurations:Dist"
 		defines "SL_DIST"
-		buildoptions "/MD"
-		optimize "On"
+		runtime "Release"
+		optimize "on"
 		
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
-	staticruntime "Off"
+	staticruntime "on"
 	language "C++"
+	cppdialect "C++17"
+
+
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
 	files
 	{
 		"%{prj.name}/src/**.h",
@@ -139,13 +146,13 @@ project "Sandbox"
 
 	filter "configurations:Debug" 
 		defines "SL_DEBUG"
-		buildoptions "/MDd"
-		symbols "On"
+		runtime "Debug"
+		symbols "on"
 	filter "configurations:Release"
 		defines "SL_RELEASE"
-		buildoptions "/MD"
-		optimize "On"
+		runtime "Release"
+		optimize "on"
 	filter "configurations:Dist"
 		defines "SL_DIST"
-		buildoptions "/MD"
-		optimize "On"
+		runtime "Release"
+		optimize "on"
