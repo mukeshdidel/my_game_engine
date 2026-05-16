@@ -29,6 +29,8 @@ namespace soul {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
+
 		struct WindowData
 		{
 			std::string Title;

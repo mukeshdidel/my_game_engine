@@ -7,7 +7,7 @@
 #include "Soul/Events/KeyEvent.h"
 #include "Soul/Events/MouseEvent.h"
 
-#include <glad/glad.h>
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace soul {
 
@@ -40,6 +40,7 @@ namespace soul {
 
 		SL_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
+
 		if (!s_GLFWInitialized)
 		{
 			// TODO: glfwTerminate on system shutdown
@@ -50,14 +51,10 @@ namespace soul {
 		}
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress); // what it does ? 
-		// Glad is a library that loads OpenGL function pointers at runtime. 
-		// Since OpenGL functions are not directly linked to your application, 
-		// you need to load them before you can use them. gladLoadGLLoader is the function that performs this loading process. 
-		// It takes a function pointer (in this case, glfwGetProcAddress) that it uses to retrieve the addresses of the OpenGL functions. 
-		// If the loading is successful, it returns a non-zero value; otherwise, it returns zero.
-		SL_CORE_ASSERT(status, "Failed to initialize Glad!");
+		
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
@@ -151,6 +148,7 @@ namespace soul {
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
+		m_Context->SwapBuffers();
 		glfwSwapBuffers(m_Window);
 	}
 
