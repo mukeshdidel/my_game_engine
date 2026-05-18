@@ -3,6 +3,7 @@
 
 #include "Soul/Core.h"
 #include "Soul/Events/Event.h"
+#include "Soul/Core/TimeStep.h"
 
 namespace soul {
 	class SOUL_API Layer
@@ -12,8 +13,8 @@ namespace soul {
 		virtual ~Layer();
 
 		virtual void OnAttach() {}
-		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnDetach() {} 
+		virtual void OnUpdate(TimeStep ts) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 

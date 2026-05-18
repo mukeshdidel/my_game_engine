@@ -13,10 +13,12 @@
 
 #include "Soul/Renderer/VertexArray.h"
 
+#include "Soul/Renderer/OrthographicCamera.h"
+
 
 namespace soul {
 
-	class SOUL_API Application
+	class Application
 	{
 	public: 
 		Application();
@@ -42,12 +44,10 @@ namespace soul {
 		LayerStack m_LayerStack;
 
 
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
- 
+		float m_LastFrameTime = 0.0f; 
 
-		std::shared_ptr<Shader> m_Shader2;
-		std::shared_ptr<VertexArray> m_SquareVA;
+
+
 		
 
 	private:
