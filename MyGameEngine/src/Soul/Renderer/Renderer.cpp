@@ -1,6 +1,8 @@
 #include "soulpch.h"
 #include "Renderer.h"
 
+#include "platform/OpenGL/OpenGLShader.h"
+
 
 namespace soul {
 
@@ -18,8 +20,8 @@ namespace soul {
 		shader->Bind();
 		vertexArray->Bind();
 
-		shader->UploadUniformMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
-		shader->UploadUniformMat4("u_Transform", transform);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_Transform", transform);
 
 		RenderCommand::DrawIndexed(vertexArray);
 	}

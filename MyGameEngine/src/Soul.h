@@ -23,6 +23,8 @@
 
 #include "Soul/Core/TimeStep.h"
 
+#include "platform/OpenGL/OpenGLShader.h"
+
 
 // ------ Entry Point -------------------------------
 #include "Soul/EntryPoint.h"
