@@ -23,7 +23,7 @@ public:
 			 0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
 		};
 
-		std::shared_ptr<soul::VertexBuffer> vertexBuffer;
+		soul::Ref<soul::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(soul::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 
@@ -39,7 +39,7 @@ public:
 			0, 1, 2
 		};
 
-		std::shared_ptr<soul::IndexBuffer> indexBuffer;
+		soul::Ref<soul::IndexBuffer> indexBuffer;
 		indexBuffer.reset(soul::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -53,7 +53,7 @@ public:
 
 		};
 
-		std::shared_ptr<soul::VertexBuffer> squareVB;
+		soul::Ref<soul::VertexBuffer> squareVB;
 		squareVB.reset(soul::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 
 		squareVB->SetLayout({
@@ -66,7 +66,7 @@ public:
 			0, 1, 2, 2, 3, 0
 		};
 
-		std::shared_ptr<soul::IndexBuffer> squareIB;
+		soul::Ref<soul::IndexBuffer> squareIB;
 		squareIB.reset(soul::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
@@ -224,12 +224,12 @@ public:
 	}
 
 private:
-	std::shared_ptr<soul::Shader> m_Shader;
-	std::shared_ptr<soul::VertexArray> m_VertexArray;
+	soul::Ref<soul::Shader> m_Shader;
+	soul::Ref<soul::VertexArray> m_VertexArray;
 
 
-	std::shared_ptr<soul::Shader> m_Shader2;
-	std::shared_ptr<soul::VertexArray> m_SquareVA;
+	soul::Ref<soul::Shader> m_Shader2;
+	soul::Ref<soul::VertexArray> m_SquareVA;
 
 	soul::OrthographicCamera m_Camera;
 
