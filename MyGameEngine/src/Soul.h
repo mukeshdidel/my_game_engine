@@ -13,6 +13,8 @@
 #include "Soul/Events/KeyEvent.h"
 #include "Soul/Events/MouseEvent.h"
 
+#include "Soul/Renderer/Texture.h"
+
 
 #include "Soul/Renderer/Buffer.h"
 #include "Soul/Renderer/OrthographicCamera.h"
