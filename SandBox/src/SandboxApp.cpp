@@ -106,7 +106,7 @@ public:
 			}
 		)";
 
-		m_Shader.reset(soul::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader = soul::Shader::Create("Shader1", vertexSrc, fragmentSrc);
 
 
 		std::string vertexSrc2 = R"(
@@ -143,19 +143,19 @@ public:
 		)";
 
 
-		m_Shader2.reset(soul::Shader::Create(vertexSrc2, fragmentSrc2));
+		m_Shader2 = soul::Shader::Create("Shader2", vertexSrc2, fragmentSrc2);
 
 
 
-		m_TextureShader.reset(soul::Shader::Create("assets/shaders/Texture.glsl"));
+		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 		
 		m_Texture = soul::Texture2D::Create("assets/textures/drogba.jpg");
 		
 		m_ChelseaTexture = soul::Texture2D::Create("assets/textures/chelsea.png");
 
 
-		std::dynamic_pointer_cast<soul::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<soul::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<soul::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<soul::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 	}
 	void OnUpdate(soul::TimeStep ts) override
 	{
@@ -214,12 +214,14 @@ public:
 			}
 		}
 
+		auto textureShader = m_ShaderLibrary.Get("Texture");
+
 		m_Texture->Bind();
 		glm::mat4 squareTransform = glm::translate(glm::mat4(1.0f), m_SquarePosition);
-		soul::Renderer::Submit(m_TextureShader , m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		soul::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		m_ChelseaTexture->Bind();
-		soul::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		soul::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 		//soul::Renderer::Submit(m_Shader, m_VertexArray);
 
 		soul::Renderer::EndScene();
@@ -239,6 +241,9 @@ public:
 	}
 
 private:
+
+	soul::ShaderLibrary m_ShaderLibrary;
+
 	soul::Ref<soul::Shader> m_Shader;
 	soul::Ref<soul::VertexArray> m_VertexArray;
 
@@ -249,7 +254,7 @@ private:
 	soul::Ref<soul::Texture2D> m_Texture, m_ChelseaTexture;
 
 
-	soul::Ref<soul::Shader> m_TextureShader;
+	//soul::Ref<soul::Shader> m_TextureShader;
 
 	soul::OrthographicCamera m_Camera;
 

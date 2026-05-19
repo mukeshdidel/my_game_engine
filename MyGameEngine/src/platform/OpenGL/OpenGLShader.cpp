@@ -18,7 +18,8 @@ namespace soul {
 		return 0;
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc)
+	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc):
+		m_Name(name)
 	{
 		std::unordered_map<GLenum, std::string> shaderSources;
 		shaderSources[GL_VERTEX_SHADER] = vertexSrc;
@@ -34,6 +35,12 @@ namespace soul {
 
 		Compile(shaderSources);
 
+		auto lastSlash = filepath.find_last_of("/\\");
+		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+		auto lastDot = filepath.rfind('.');
+		auto count = lastDot == std::string::npos ? filepath.size() - lastSlash : lastDot - lastSlash;
+		m_Name = filepath.substr(lastSlash, count);
+
 	}
 
 
@@ -45,7 +52,7 @@ namespace soul {
 
 	std::string OpenGLShader::ReadFile(const std::string& filepath)
 	{
-		std::ifstream in(filepath, std::ios::in, std::ios::binary);
+		std::ifstream in(filepath, std::ios::in | std::ios::binary);
 
 
 		std::string result;
@@ -88,8 +95,9 @@ namespace soul {
 	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSources)
 	{
 		GLuint program = glCreateProgram();
-		std::vector<GLenum> glShaderIDs(shaderSources.size());	 
-
+		SL_CORE_ASSERT(shaderSources.size() <= 2, "We only support 2 shaders for now (vertex and fragment)");
+		std::array<GLenum, 2> glShaderIDs;	
+		int glShaderIDIndex = 0;
 		for (auto& kv : shaderSources)
 		{
 			GLenum shaderType = kv.first;
@@ -119,7 +127,7 @@ namespace soul {
 				break;
 			}
 			glAttachShader(program, shader);
-			glShaderIDs.push_back(shader);
+			glShaderIDs[glShaderIDIndex++] = shader;
 
 
 		}
