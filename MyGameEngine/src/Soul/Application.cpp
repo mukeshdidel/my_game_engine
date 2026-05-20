@@ -46,9 +46,11 @@ namespace soul {
 			TimeStep timeStep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate(timeStep);
-
+			if (!m_Minimized)
+			{
+				for (Layer* layer : m_LayerStack)
+					layer->OnUpdate(timeStep);
+			}
 			//SL_CORE_TRACE("{0}, {1}", Input::GetMouseX(), Input::GetMouseY());
 
 			m_ImGuiLayer->Begin();
@@ -64,6 +66,7 @@ namespace soul {
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(SL_BIND_EVENT_FN(OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(SL_BIND_EVENT_FN(OnWindowResize));
 
 		//SL_CORE_INFO("{0}", e.ToString());
 
@@ -92,5 +95,19 @@ namespace soul {
 	{
 		m_Running = false;
 		return true;
+	}
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		if (e.GetHeight() == 0 || e.GetWidth() == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+
+		m_Minimized = false;
+		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+
+
+		return false;
 	}
 }

@@ -36,6 +36,7 @@ namespace soul {
 	private:
 
 		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
 
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
@@ -45,6 +46,8 @@ namespace soul {
 
 
 		float m_LastFrameTime = 0.0f; 
+
+		bool m_Minimized = false;
 
 
 

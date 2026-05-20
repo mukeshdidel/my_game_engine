@@ -11,7 +11,7 @@ class ExampleLayer : public soul::Layer
 {
 public:
 	ExampleLayer() 
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f, 0.0f, 0.0f), m_SquarePosition(0.0f, 0.0f, 0.0f)
+		: Layer("Example"), m_CameraController(1280.0f / 720.0f)
 	{
 
 		m_VertexArray.reset(soul::VertexArray::Create());
@@ -160,44 +160,12 @@ public:
 	void OnUpdate(soul::TimeStep ts) override
 	{
 
-
-		if (soul::Input::IsKeyPressed(SL_KEY_A)) 
-			m_CameraPosition.x -= cameraMoveSpeed * ts;
-		else if (soul::Input::IsKeyPressed(SL_KEY_D))
-			m_CameraPosition.x += cameraMoveSpeed * ts;
-		if (soul::Input::IsKeyPressed(SL_KEY_W))
-			m_CameraPosition.y += cameraMoveSpeed * ts;
-		else if (soul::Input::IsKeyPressed(SL_KEY_S))
-			m_CameraPosition.y -= cameraMoveSpeed * ts;
-
-
-		if (soul::Input::IsKeyPressed(SL_KEY_LEFT))
-			m_SquarePosition.x -= squareMoveSpeed * ts;
-		else if (soul::Input::IsKeyPressed(SL_KEY_RIGHT))
-			m_SquarePosition.x += squareMoveSpeed * ts;
-		if (soul::Input::IsKeyPressed(SL_KEY_UP))
-			m_SquarePosition.y += squareMoveSpeed * ts;
-		else if (soul::Input::IsKeyPressed(SL_KEY_DOWN))
-			m_SquarePosition.y -= squareMoveSpeed * ts;
-
-
-		if (soul::Input::IsKeyPressed(SL_KEY_Q))
-			cameraRotation += cameraRotationSpeed * ts;
-		else if (soul::Input::IsKeyPressed(SL_KEY_E))
-			cameraRotation -= cameraRotationSpeed * ts;
-
+		m_CameraController.OnUpdate(ts);
 
 		soul::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		soul::RenderCommand::Clear();
 
-		m_Camera.SetPosition(m_CameraPosition);
-		m_Camera.SetRotation(cameraRotation);
-
-		soul::Renderer::BeginScene(m_Camera);
-
-
-		glm::vec4 redColor = { 0.8f, 0.2f, 0.3f, 1.0f };
-		glm::vec4 blueColor = { 0.2f, 0.3f, 0.8f, 1.0f };
+		soul::Renderer::BeginScene(m_CameraController.GetCamera());
 
 
 		std::dynamic_pointer_cast<soul::OpenGLShader>(m_Shader2)->Bind();
@@ -217,11 +185,12 @@ public:
 		auto textureShader = m_ShaderLibrary.Get("Texture");
 
 		m_Texture->Bind();
-		glm::mat4 squareTransform = glm::translate(glm::mat4(1.0f), m_SquarePosition);
 		soul::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		m_ChelseaTexture->Bind();
 		soul::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		
+		
 		//soul::Renderer::Submit(m_Shader, m_VertexArray);
 
 		soul::Renderer::EndScene();
@@ -237,7 +206,7 @@ public:
 
 	void OnEvent(soul::Event& event) override
 	{
-
+		m_CameraController.OnEvent(event);
 	}
 
 private:
@@ -256,16 +225,7 @@ private:
 
 	//soul::Ref<soul::Shader> m_TextureShader;
 
-	soul::OrthographicCamera m_Camera;
-
-	glm::vec3 m_CameraPosition;
-	float cameraMoveSpeed = 5.0f;
-
-	float cameraRotation = 0.0f;
-	float cameraRotationSpeed = 180.0f;
-
-	glm::vec3 m_SquarePosition;
-	float squareMoveSpeed = 1.0f;
+	soul::OrthographicCameraController m_CameraController;
 
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 };

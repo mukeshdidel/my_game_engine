@@ -15,6 +15,7 @@
 
 #include "Soul/Renderer/Texture.h"
 
+#include "Soul/OrthographicCameraController.h"
 
 #include "Soul/Renderer/Buffer.h"
 #include "Soul/Renderer/OrthographicCamera.h"
