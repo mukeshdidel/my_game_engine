@@ -1,14 +1,12 @@
 #include "soulpch.h"
 #include "Application.h"
-#include "Log.h"
 
-
-#include "Input.h"
-
+#include "Soul/Core/Log.h"
+#include "Soul/Core/Input.h"
+#include "Soul/Core/TimeStep.h"
 
 #include "Soul/Renderer/Renderer.h"
 
-#include "Soul/Core/TimeStep.h"
 #include <GLFW/glfw3.h>
 
 namespace soul {
@@ -23,7 +21,7 @@ namespace soul {
 		SL_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
-		m_Window = std::unique_ptr<Window>(Window::Create());
+		m_Window = Scope<Window>(Window::Create());
 		m_Window->SetEventCallback(SL_BIND_EVENT_FN(OnEvent));
 
 		Renderer::Init();

@@ -1,6 +1,6 @@
 #include "soulpch.h"
 #include "OpenGLContext.h"
-#include "Soul/Log.h"
+#include "Soul/Core/Log.h"
 
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>

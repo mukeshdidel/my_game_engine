@@ -6,6 +6,10 @@
 
 #include <imgui/imgui.h>
 
+#include "Sandbox2D.h"
+
+#include <Soul/Core/EntryPoint.h>
+
 
 class ExampleLayer : public soul::Layer
 {
@@ -14,7 +18,7 @@ public:
 		: Layer("Example"), m_CameraController(1280.0f / 720.0f)
 	{
 
-		m_VertexArray.reset(soul::VertexArray::Create());
+		m_VertexArray = soul::VertexArray::Create();
 
 
 		float  vertices[3 * 7] = {
@@ -43,7 +47,7 @@ public:
 		indexBuffer.reset(soul::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
-		m_SquareVA.reset(soul::VertexArray::Create());
+		m_SquareVA = soul::VertexArray::Create();
 
 		float  squareVertices[4 * 5] = {
 			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
@@ -230,12 +234,17 @@ private:
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 };
 
+
+
+
+
 class Sandbox : public soul::Application
 {
 public:
 	Sandbox()
 	{
-		PushLayer(new ExampleLayer());
+		//PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
 	}
 	~Sandbox()
 	{

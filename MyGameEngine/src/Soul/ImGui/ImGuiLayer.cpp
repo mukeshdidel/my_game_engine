@@ -4,7 +4,7 @@
 #include "imgui.h"
 
 #include "GLFW/glfw3.h"
-#include "Soul/Application.h"
+#include "Soul/Core/Application.h"
 
 
 #include "backends/imgui_impl_glfw.h"

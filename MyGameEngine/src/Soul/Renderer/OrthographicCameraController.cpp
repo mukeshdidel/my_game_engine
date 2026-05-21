@@ -1,7 +1,7 @@
 #include "soulpch.h"
 #include "OrthographicCameraController.h"
-#include "Soul/Input.h"
-#include "Soul/KeyCode.h"
+#include "Soul/Core/Input.h"
+#include "Soul/Core/KeyCode.h"
 
 namespace soul {
 

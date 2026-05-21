@@ -1,8 +1,9 @@
 #pragma once
 
-#include "RenderCommand.h"
-#include "Shader.h"
-#include "OrthographicCamera.h"
+#include "Soul/Renderer/OrthographicCamera.h"
+#include "Soul/Renderer/Renderer2D.h"
+#include "Soul/Renderer/RenderCommand.h"
+#include "Soul/Renderer/Shader.h"
 
 namespace soul {
 

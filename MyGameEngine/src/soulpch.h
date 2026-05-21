@@ -16,7 +16,7 @@
 #include <cassert>
 #include <cstdint>
 
-#include "Soul/Log.h"
+#include "Soul/Core/Log.h"
 
 
 #ifdef SL_PLATFORM_WINDOWS

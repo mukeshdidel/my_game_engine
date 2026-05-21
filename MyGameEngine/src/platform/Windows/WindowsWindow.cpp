@@ -1,6 +1,6 @@
 #include "soulpch.h"
 #include "WindowsWindow.h"
-#include "Soul/Log.h"
+#include "Soul/Core/Log.h"
 
 #include "Soul/Events/Event.h"
 #include "Soul/Events/ApplicationEvent.h"
