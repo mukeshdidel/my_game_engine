@@ -4,35 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-
-class Timer {
-public:
-	Timer(const char* name)
-		: m_Name(name), m_Stopped(false)
-	{
-		m_StartTimepoint = std::chrono::high_resolution_clock::now();
-	}
-
-	~Timer() {
-		if (!m_Stopped) 
-			Stop();
-	}
-
-	void Stop() {
-		auto endTimepoint = std::chrono::high_resolution_clock::now();
-		long long start = std::chrono::time_point_cast<std::chrono::milliseconds>(m_StartTimepoint).time_since_epoch().count();
-		long long end = std::chrono::time_point_cast<std::chrono::milliseconds>(endTimepoint).time_since_epoch().count();
-		
-		m_Stopped = true;
-
-		float duration = (end - start);
-		SL_CORE_INFO("{0}: {1}ms", m_Name, duration);
-	}
-private:
-	const char* m_Name;
-	std::chrono::time_point<std::chrono::high_resolution_clock> m_StartTimepoint;
-	bool m_Stopped;
-};
+#include <chrono>
 
 
 Sandbox2D::Sandbox2D()
@@ -53,7 +25,15 @@ void Sandbox2D::OnDetach()
 
 void Sandbox2D::OnUpdate(soul::TimeStep ts)
 {
-	m_CameraController.OnUpdate(ts);
+	
+	SL_PROFILE_FUNCTION();
+
+	{
+		SL_PROFILE_SCOPE("CameraController::OnUpdate");
+		m_CameraController.OnUpdate(ts);
+
+	}
+
 
 	soul::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 	soul::RenderCommand::Clear();
@@ -72,8 +52,13 @@ void Sandbox2D::OnUpdate(soul::TimeStep ts)
 
 void Sandbox2D::OnImGuiRender()
 {
+
+	SL_PROFILE_FUNCTION();
+
 	ImGui::Begin("Settings");
 	ImGui::ColorEdit3("square color", glm::value_ptr(m_SquareColor));
+
+
 	ImGui::End();
 }
 

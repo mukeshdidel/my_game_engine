@@ -23,7 +23,9 @@ private:
 	soul::Ref<soul::VertexArray> m_SquareVA;
 	soul::Ref<soul::Shader> m_FlatColorShader;
 
-	soul::Ref<soul::Texture> m_DrogbaTexture;
+	soul::Ref<soul::Texture2D> m_DrogbaTexture;
+
+
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0 };
 };

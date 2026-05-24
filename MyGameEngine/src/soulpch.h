@@ -17,6 +17,7 @@
 #include <cstdint>
 
 #include "Soul/Core/Log.h"
+#include "Soul/Debug/Instrumentor.h"
 
 
 #ifdef SL_PLATFORM_WINDOWS
