@@ -15,6 +15,8 @@ namespace soul {
 
 	void OrthographicCameraController::OnUpdate(TimeStep ts)
 	{
+		SL_PROFILE_FUNCTION();
+
 
 		if (soul::Input::IsKeyPressed(SL_KEY_A))
 			m_CameraPosition.x -= m_CameraTranslationSpeed * ts;
@@ -44,6 +46,7 @@ namespace soul {
 
 	void OrthographicCameraController::OnEvent(Event& e)
 	{
+		SL_PROFILE_FUNCTION();
 
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<MouseScrolledEvent>(SL_BIND_EVENT_FN(OrthographicCameraController::OnMouseScrolled));
@@ -52,6 +55,8 @@ namespace soul {
 
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e)
 	{
+		SL_PROFILE_FUNCTION();
+
 		m_ZoomLevel -= e.GetYOffset() * 0.25f;
 		m_ZoomLevel = std::max(m_ZoomLevel, 0.25f);
 
@@ -61,6 +66,7 @@ namespace soul {
 
 	bool OrthographicCameraController::OnWindowResized(WindowResizeEvent& e)
 	{
+		SL_PROFILE_FUNCTION();
 
 		m_AspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
 		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);

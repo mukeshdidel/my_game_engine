@@ -28,6 +28,8 @@ namespace soul {
 
 	void ImGuiLayer::OnAttach()
 	{
+		SL_PROFILE_FUNCTION();
+			
 		IMGUI_CHECKVERSION();
 
 		ImGui::CreateContext();
@@ -59,6 +61,8 @@ namespace soul {
 
 	void ImGuiLayer::OnDetach()
 	{
+		SL_PROFILE_FUNCTION();
+
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
@@ -66,6 +70,8 @@ namespace soul {
 
 	void ImGuiLayer::Begin()
 	{
+		SL_PROFILE_FUNCTION();
+
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
@@ -73,6 +79,8 @@ namespace soul {
 
 	void ImGuiLayer::End()
 	{
+		SL_PROFILE_FUNCTION();
+
 		ImGuiIO& io = ImGui::GetIO();
 		Application& app = Application::Get();
 		io.DisplaySize = ImVec2(
@@ -99,6 +107,8 @@ namespace soul {
 
 	void ImGuiLayer::OnImGuiRender()
 	{
+		SL_PROFILE_FUNCTION();
+
 		static bool show = true;
 		ImGui::ShowDemoWindow(&show);
 	}

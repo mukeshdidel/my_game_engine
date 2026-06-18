@@ -14,6 +14,8 @@ Sandbox2D::Sandbox2D()
 
 void Sandbox2D::OnAttach()
 {
+	SL_PROFILE_FUNCTION();
+
 	m_DrogbaTexture = soul::Texture2D::Create("assets/textures/drogba.jpg");
 
 	
@@ -21,6 +23,8 @@ void Sandbox2D::OnAttach()
 
 void Sandbox2D::OnDetach()
 {
+	SL_PROFILE_FUNCTION();
+
 }
 
 void Sandbox2D::OnUpdate(soul::TimeStep ts)
@@ -28,11 +32,9 @@ void Sandbox2D::OnUpdate(soul::TimeStep ts)
 	
 	SL_PROFILE_FUNCTION();
 
-	{
-		SL_PROFILE_SCOPE("CameraController::OnUpdate");
-		m_CameraController.OnUpdate(ts);
+	
+	m_CameraController.OnUpdate(ts);
 
-	}
 
 
 	soul::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
@@ -42,7 +44,7 @@ void Sandbox2D::OnUpdate(soul::TimeStep ts)
 
 	soul::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, {0.0f, 0.0f, 1.0f, 1.0f});
 	soul::Renderer2D::DrawQuad({ 1.0f, 0.0f }, { 1.0f, 0.5f }, m_SquareColor);
-	soul::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 10.0f, 10.0f }, m_DrogbaTexture);
+	soul::Renderer2D::DrawRotatedQuad({ 0.0f, 0.0f }, { 10.0f, 10.0f }, glm::radians(45.0f), m_DrogbaTexture, 10.0f);
 
 
 	soul::Renderer2D::EndScene();

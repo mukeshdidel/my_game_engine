@@ -18,6 +18,8 @@ namespace soul {
 	Application::Application()
 	{
 
+		SL_PROFILE_FUNCTION();
+
 		SL_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
@@ -38,6 +40,8 @@ namespace soul {
 
 	void Application::Run()
 	{
+		SL_PROFILE_FUNCTION();
+
 		while (m_Running) {
 
 			float time = glfwGetTime();
@@ -46,15 +50,23 @@ namespace soul {
 
 			if (!m_Minimized)
 			{
-				for (Layer* layer : m_LayerStack)
-					layer->OnUpdate(timeStep);
+				{
+					SL_PROFILE_SCOPE("LayerStack OnUpdate - Application::Run");
+
+					for (Layer* layer : m_LayerStack)
+						layer->OnUpdate(timeStep);
+				}
+				m_ImGuiLayer->Begin();
+				{
+					SL_PROFILE_SCOPE("LayerStack OnImGuiRender - Application::Run");
+
+					for (Layer* layer : m_LayerStack)
+						layer->OnImGuiRender();
+				}
+				m_ImGuiLayer->End();
+
 			}
 			//SL_CORE_TRACE("{0}, {1}", Input::GetMouseX(), Input::GetMouseY());
-
-			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
-				layer->OnImGuiRender();
-			m_ImGuiLayer->End();
 
 			m_Window->OnUpdate();
 		}
@@ -62,6 +74,8 @@ namespace soul {
 
 	void Application::OnEvent(Event& e)
 	{
+		SL_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(SL_BIND_EVENT_FN(OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(SL_BIND_EVENT_FN(OnWindowResize));
@@ -78,12 +92,16 @@ namespace soul {
 
 	void Application::PushLayer(Layer* layer)
 	{
+		SL_PROFILE_FUNCTION();
+
 		m_LayerStack.PushLayer(layer);
 		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* overlay)
 	{
+		SL_PROFILE_FUNCTION();
+
 		m_LayerStack.PushOverlay(overlay);
 		overlay->OnAttach();
 	}
@@ -91,11 +109,14 @@ namespace soul {
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
+
 		m_Running = false;
 		return true;
 	}
 	bool Application::OnWindowResize(WindowResizeEvent& e)
 	{
+		SL_PROFILE_FUNCTION();
+
 		if (e.GetHeight() == 0 || e.GetWidth() == 0)
 		{
 			m_Minimized = true;

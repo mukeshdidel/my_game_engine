@@ -28,7 +28,7 @@ public:
 		};
 
 		soul::Ref<soul::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(soul::VertexBuffer::Create(vertices, sizeof(vertices)));
+		vertexBuffer = soul::VertexBuffer::Create(vertices, sizeof(vertices));
 
 
 		soul::BufferLayout layout = {
@@ -43,8 +43,8 @@ public:
 			0, 1, 2
 		};
 
-		soul::Ref<soul::IndexBuffer> indexBuffer;
-		indexBuffer.reset(soul::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		soul::Ref<soul::IndexBuffer> indexBuffer = soul::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
+
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		m_SquareVA = soul::VertexArray::Create();
@@ -57,8 +57,8 @@ public:
 
 		};
 
-		soul::Ref<soul::VertexBuffer> squareVB;
-		squareVB.reset(soul::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		soul::Ref<soul::VertexBuffer> squareVB = soul::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
+
 
 		squareVB->SetLayout({
 			{ soul::ShaderDataType::Float3, "a_Position" },
@@ -71,8 +71,7 @@ public:
 			0, 1, 2, 2, 3, 0
 		};
 
-		soul::Ref<soul::IndexBuffer> squareIB;
-		squareIB.reset(soul::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		soul::Ref<soul::IndexBuffer> squareIB = soul::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
 		std::string vertexSrc = R"(

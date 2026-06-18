@@ -5,6 +5,6 @@
 
 namespace soul {
 
-	RendererAPI* RenderCommand::s_RendererAPI = new OpenGLRendererAPI();
+	Scope<RendererAPI> RenderCommand::s_RendererAPI =  Scope<RendererAPI>(new OpenGLRendererAPI());
 
 }

@@ -16,6 +16,7 @@ namespace soul {
 	}
 	void OpenGLContext::Init()
 	{
+		SL_PROFILE_FUNCTION();
 
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress); // what it does ? 
@@ -37,6 +38,9 @@ namespace soul {
 
 	void OpenGLContext::SwapBuffers()
 	{
+
+		SL_PROFILE_FUNCTION();
+
 		glfwSwapBuffers(m_WindowHandle);
 	}
 }

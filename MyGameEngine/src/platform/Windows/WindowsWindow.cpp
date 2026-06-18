@@ -25,11 +25,16 @@ namespace soul {
 
 	WindowsWindow::WindowsWindow(const WindowProps& props)
 	{
+
+		SL_PROFILE_FUNCTION();
+
 		Init(props);
 	}
 
 	WindowsWindow::~WindowsWindow()
 	{
+		SL_PROFILE_FUNCTION();
+
 		Shutdown();
 	}
 
@@ -142,17 +147,25 @@ namespace soul {
 
 	void WindowsWindow::Shutdown()
 	{
+
+		SL_PROFILE_FUNCTION();
+
 		glfwDestroyWindow(m_Window);
 	}
 
 	void WindowsWindow::OnUpdate()
 	{
+		SL_PROFILE_FUNCTION();
+
 		glfwPollEvents();
 		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
 	{
+
+		SL_PROFILE_FUNCTION();
+
 		if (enabled)
 			glfwSwapInterval(1);
 		else
@@ -162,6 +175,7 @@ namespace soul {
 
 	bool WindowsWindow::IsVSync() const
 	{
+
 		return m_Data.VSync;
 	}
 
