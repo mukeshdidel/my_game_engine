@@ -35,7 +35,7 @@ void Sandbox2D::OnUpdate(soul::TimeStep ts)
 	
 	m_CameraController.OnUpdate(ts);
 
-
+	soul::Renderer2D::ResetStats();
 
 	soul::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 	soul::RenderCommand::Clear();
@@ -59,6 +59,15 @@ void Sandbox2D::OnImGuiRender()
 	SL_PROFILE_FUNCTION();
 
 	ImGui::Begin("Settings");
+
+	auto stats = soul::Renderer2D::GetStats();
+	ImGui::Text("Renderer2D stats:");
+	ImGui::Text("Draw Calls: %d", stats.DrawCalls);
+	ImGui::Text("Quads: %d", stats.QuadCount);
+	ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
+	ImGui::Text("Indices: %d", stats.GetTotalIndexCount());  
+
+
 	ImGui::ColorEdit3("square color", glm::value_ptr(m_SquareColor));
 
 
