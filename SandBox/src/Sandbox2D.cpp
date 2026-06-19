@@ -44,7 +44,8 @@ void Sandbox2D::OnUpdate(soul::TimeStep ts)
 
 	soul::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, {0.0f, 0.0f, 1.0f, 1.0f});
 	soul::Renderer2D::DrawQuad({ 1.0f, 0.0f }, { 1.0f, 0.5f }, m_SquareColor);
-	soul::Renderer2D::DrawRotatedQuad({ 0.0f, 0.0f }, { 10.0f, 10.0f }, glm::radians(45.0f), m_DrogbaTexture, 10.0f);
+	soul::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 2.0f, 2.0f }, m_DrogbaTexture, 1.0f);
+	soul::Renderer2D::DrawRotatedQuad({ -0.5f, -0.5f }, { 2.0f, 2.0f }, 45.0f, m_DrogbaTexture, 10.0f);
 
 
 	soul::Renderer2D::EndScene();
