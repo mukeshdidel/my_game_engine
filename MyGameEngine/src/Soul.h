@@ -17,6 +17,7 @@
 #include "Soul/Events/MouseEvent.h"
 
 #include "Soul/Renderer/Texture.h"
+#include "Soul/Renderer/SubTexture2D.h"
 #include "Soul/Renderer/OrthographicCameraController.h"
 #include "Soul/Renderer/Buffer.h"
 #include "Soul/Renderer/OrthographicCamera.h"

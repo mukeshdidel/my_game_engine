@@ -17,7 +17,9 @@ void Sandbox2D::OnAttach()
 	SL_PROFILE_FUNCTION();
 
 	m_DrogbaTexture = soul::Texture2D::Create("assets/textures/drogba.jpg");
+	m_SpriteSheet = soul::Texture2D::Create("assets/game/textures/RPGpack_sheet_2X.png");
 
+	m_TextureStairs = soul::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 7, 6 }, { 128, 128 });
 	
 }
 
@@ -40,13 +42,20 @@ void Sandbox2D::OnUpdate(soul::TimeStep ts)
 	soul::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 	soul::RenderCommand::Clear();
 
+	//soul::Renderer2D::BeginScene(m_CameraController.GetCamera());
+
+	//soul::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, {0.0f, 0.0f, 1.0f, 1.0f});
+	//soul::Renderer2D::DrawQuad({ 1.0f, 0.0f }, { 1.0f, 0.5f }, m_SquareColor);
+	//soul::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 2.0f, 2.0f }, m_DrogbaTexture, 1.0f);
+	//soul::Renderer2D::DrawRotatedQuad({ -0.5f, -0.5f }, { 2.0f, 2.0f }, 45.0f, m_DrogbaTexture, 10.0f);
+
+
+	//soul::Renderer2D::EndScene();
+
+
 	soul::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-	soul::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, {0.0f, 0.0f, 1.0f, 1.0f});
-	soul::Renderer2D::DrawQuad({ 1.0f, 0.0f }, { 1.0f, 0.5f }, m_SquareColor);
-	soul::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 2.0f, 2.0f }, m_DrogbaTexture, 1.0f);
-	soul::Renderer2D::DrawRotatedQuad({ -0.5f, -0.5f }, { 2.0f, 2.0f }, 45.0f, m_DrogbaTexture, 10.0f);
-
+	soul::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, m_TextureStairs);
 
 	soul::Renderer2D::EndScene();
 	

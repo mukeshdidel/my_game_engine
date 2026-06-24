@@ -24,6 +24,8 @@ private:
 	soul::Ref<soul::Shader> m_FlatColorShader;
 
 	soul::Ref<soul::Texture2D> m_DrogbaTexture;
+	soul::Ref<soul::Texture2D> m_SpriteSheet;
+	soul::Ref<soul::SubTexture2D> m_TextureStairs;
 
 
 
