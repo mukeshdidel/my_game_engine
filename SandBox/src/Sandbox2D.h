@@ -25,9 +25,16 @@ private:
 
 	soul::Ref<soul::Texture2D> m_DrogbaTexture;
 	soul::Ref<soul::Texture2D> m_SpriteSheet;
-	soul::Ref<soul::SubTexture2D> m_TextureStairs;
+
+	soul::Ref<soul::SubTexture2D> m_TexStairs;
+	soul::Ref<soul::SubTexture2D> m_TexDurt;
+	soul::Ref<soul::SubTexture2D> m_TexTree;
 
 
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0 };
+
+	uint32_t m_MapWidth, m_MapHeight;
+	std::unordered_map<char, soul::Ref<soul::SubTexture2D>> s_TextureMap;
+
 };

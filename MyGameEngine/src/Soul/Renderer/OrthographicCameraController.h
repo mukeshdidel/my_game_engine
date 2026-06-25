@@ -9,6 +9,13 @@
 
 
 namespace soul {
+
+	struct OrthographicCameraBounds {
+		float left, right, top, bottom;
+		float GetWidth() { return right - left; }
+		float GetHeight() { return top - bottom; }
+	};
+
 	class OrthographicCameraController
 	{
 	public:
@@ -20,9 +27,13 @@ namespace soul {
 		OrthographicCamera& GetCamera() { return m_Camera; }
 
 
-		void SetZoomLevel(float level) { m_ZoomLevel = level; }
-		float GetZoomLevel() const { return m_ZoomLevel; }
+		void SetZoomLevel(float level) { m_ZoomLevel = level; CalculateView(); }
+		float GetZoomLevel() const { return m_ZoomLevel;  }
+
+		const OrthographicCameraBounds& GetBounds() { return m_Bounds; }
 	private:
+
+		void CalculateView();
 
 
 		bool OnMouseScrolled(MouseScrolledEvent& e);
@@ -32,6 +43,7 @@ namespace soul {
 		float m_AspectRatio;
 		float m_ZoomLevel = 1.0f;
 		OrthographicCamera m_Camera;
+		OrthographicCameraBounds m_Bounds;
 
 		bool m_Rotation;  
 

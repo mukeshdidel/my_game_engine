@@ -183,7 +183,6 @@ namespace soul{
 		SL_PROFILE_FUNCTION();
 
 		constexpr size_t quadVertexCount = 4;
-		constexpr glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
 		constexpr glm::vec2 textureCorrds[] = {
 			{ 0.0f, 0.0f},
 			{ 1.0f, 0.0f},
@@ -366,7 +365,6 @@ namespace soul{
 		SL_PROFILE_FUNCTION();
 	
 		constexpr size_t quadVertexCount = 4;
-		constexpr glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
 		constexpr glm::vec2 textureCorrds[] = {
 			{ 0.0f, 0.0f},
 			{ 1.0f, 0.0f},
