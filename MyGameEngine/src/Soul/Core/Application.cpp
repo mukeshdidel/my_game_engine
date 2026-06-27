@@ -72,6 +72,12 @@ namespace soul {
 		}
 	}
 
+	void Application::Close()
+	{
+		m_Running = false;
+	}
+
+
 	void Application::OnEvent(Event& e)
 	{
 		SL_PROFILE_FUNCTION();
