@@ -122,8 +122,64 @@ project "Sandbox"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
-		"%{prj.name}/vendor/glm/glm/**.hpp",
-		"%{prj.name}/vendor/glm/glm/**.inl"
+	}
+	includedirs
+	{
+		"MyGameEngine/vendor/spdlog/include",
+		"MyGameEngine/src",
+		"MyGameEngine/vendor",
+		"%{IncludeDir.glm}"
+	}
+
+	links
+	{
+		"MyGameEngine"
+	}
+
+	filter "system:windows"
+		cppdialect "C++17"
+
+		systemversion "latest"
+
+		defines
+		{
+			"SL_PLATFORM_WINDOWS"
+		}
+		
+		buildoptions 
+		{ 
+			"/utf-8" 
+		}
+
+	filter "configurations:Debug" 
+		defines "SL_DEBUG"
+		runtime "Debug"
+		symbols "on"
+	filter "configurations:Release"
+		defines "SL_RELEASE"
+		runtime "Release"
+		optimize "on"
+	filter "configurations:Dist"
+		defines "SL_DIST"
+		runtime "Release"
+		optimize "on"
+
+		
+project "Soul-Editor"
+	location "Soul-Editor"
+	kind "ConsoleApp"
+	staticruntime "on"
+	language "C++"
+	cppdialect "C++17"
+
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
+	files
+	{
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp"
 	}
 	includedirs
 	{

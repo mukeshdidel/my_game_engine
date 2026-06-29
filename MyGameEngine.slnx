@@ -15,4 +15,6 @@
   </Project>
   <Project Path="Sandbox\Sandbox.vcxproj" Id="F4C124E3-60A1-A37E-69B9-2E55D5170AE0">
   </Project>
+  <Project Path="Soul-Editor\Soul-Editor.vcxproj" Id="5CB1F001-C866-69F7-515B-63CEBD0F60FB">
+  </Project>
 </Solution>

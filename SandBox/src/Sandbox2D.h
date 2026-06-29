@@ -18,7 +18,6 @@ public:
 private:
 	soul::OrthographicCameraController m_CameraController;
 
-
 	// Temp
 	soul::Ref<soul::VertexArray> m_SquareVA;
 	soul::Ref<soul::Shader> m_FlatColorShader;
@@ -36,5 +35,6 @@ private:
 
 	uint32_t m_MapWidth, m_MapHeight;
 	std::unordered_map<char, soul::Ref<soul::SubTexture2D>> s_TextureMap;
+
 
 };

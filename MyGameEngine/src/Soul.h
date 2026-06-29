@@ -20,6 +20,7 @@
 #include "Soul/Renderer/SubTexture2D.h"
 #include "Soul/Renderer/OrthographicCameraController.h"
 #include "Soul/Renderer/Buffer.h"
+#include "Soul/Renderer/FrameBuffer.h"
 #include "Soul/Renderer/OrthographicCamera.h"
 #include "Soul/Renderer/Renderer.h"
 #include "Soul/Renderer/Renderer2D.h"

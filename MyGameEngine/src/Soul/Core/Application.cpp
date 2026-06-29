@@ -15,7 +15,7 @@ namespace soul {
 	Application* Application::s_Instance = nullptr;
 
 
-	Application::Application()
+	Application::Application(const std::string& name)
 	{
 
 		SL_PROFILE_FUNCTION();
@@ -23,7 +23,7 @@ namespace soul {
 		SL_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
-		m_Window = Scope<Window>(Window::Create());
+		m_Window = Scope<Window>(Window::Create(WindowProps(name)));
 		m_Window->SetEventCallback(SL_BIND_EVENT_FN(OnEvent));
 
 		Renderer::Init();

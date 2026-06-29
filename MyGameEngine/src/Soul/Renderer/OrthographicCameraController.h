@@ -25,7 +25,7 @@ namespace soul {
 		void OnEvent(Event& e);
 
 		OrthographicCamera& GetCamera() { return m_Camera; }
-
+		void OnResize(float width, float height);
 
 		void SetZoomLevel(float level) { m_ZoomLevel = level; CalculateView(); }
 		float GetZoomLevel() const { return m_ZoomLevel;  }
